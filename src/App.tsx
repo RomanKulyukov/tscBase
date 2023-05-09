@@ -17,6 +17,9 @@ function filterBy(arg: string) {
   console.log("filter by " + arg);
 }
 function App() {
+  fetch("https://jsonplaceholder.typicode.com/todos/1")
+    .then((response) => response.json())
+    .then((json) => console.log(json));
   function rowFiller(n: number): any {
     let a = [];
     for (let i = 0; i < n; i++) {
