@@ -3,11 +3,13 @@ import { useState } from "react";
 import { Layout, Space, Col, Row, Button } from "antd";
 import "./App.css";
 import "antd/dist/reset.css";
+import { Octokit } from "octokit";
 import Search from "./components/search/search";
 import ButtonSearch from "./components/buttonSearch/buttonSearch";
 import { createCallChain } from "typescript";
 
 const { Header, Footer, Sider, Content } = Layout;
+
 const CENTER = {
   display: "flex",
   justifyContent: "center",
@@ -16,10 +18,33 @@ const CENTER = {
 function filterBy(arg: string) {
   console.log("filter by " + arg);
 }
+
+// Octokit.js
+// https://github.com/octokit/core.js#readme
+// const octokit = new Octokit({
+//   auth: 'YOUR-TOKEN'
+// })
+
+// await octokit.request('GET /repos/{owner}/{repo}', {
+//   owner: 'OWNER',
+//   repo: 'REPO',
+//   headers: {
+//     'X-GitHub-Api-Version': '2022-11-28'
+//   }
+// })
+
 function App() {
-  fetch("https://jsonplaceholder.typicode.com/todos/1")
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+  // Octokit.js
+  // https://github.com/octokit/core.js#readme
+  const octokit = new Octokit({
+    auth: "YOUR-TOKEN",
+  });
+
+  await octokit.request("GET /search/repositories", {
+    headers: {
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+  });
   function rowFiller(n: number): any {
     let a = [];
     for (let i = 0; i < n; i++) {
