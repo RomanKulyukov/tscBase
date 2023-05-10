@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout, Space, Col, Row, Button } from "antd";
 import "./App.css";
 import "antd/dist/reset.css";
@@ -36,15 +36,19 @@ function filterBy(arg: string) {
 function App() {
   // Octokit.js
   // https://github.com/octokit/core.js#readme
-  const octokit = new Octokit({
-    auth: "YOUR-TOKEN",
-  });
-
-  await octokit.request("GET /search/repositories", {
-    headers: {
-      "X-GitHub-Api-Version": "2022-11-28",
-    },
-  });
+  // const octokit = new Octokit({
+  //   auth: "YOUR-TOKEN",
+  // });
+  // console.log(octokit);
+  const resp = await fetch(
+    "https://api.github.com/search/repositories?q=facebook"
+  );
+  console.log(resp);
+  // await octokit.request("GET /search/repositories", {
+  //   headers: {
+  //     "X-GitHub-Api-Version": "2022-11-28",
+  //   },
+  // });
   function rowFiller(n: number): any {
     let a = [];
     for (let i = 0; i < n; i++) {
