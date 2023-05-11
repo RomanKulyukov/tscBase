@@ -16,10 +16,14 @@
 .search__title {
   color: #f3fba9;
   font-family: "Bebas Neue", sans-serif;
+  text-align: center;
   font-size: 50px;
   letter-spacing: 5px;
 }
-.searchBar {
-  padding-left: 50px;
-  padding-right: 50px;
+.search__head {
+  width: 100%;
+  padding-bottom: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-bottom: solid #f3fba9;
 }

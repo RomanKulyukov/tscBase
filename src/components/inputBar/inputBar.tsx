@@ -1,8 +1,7 @@
 import React from "react";
 import { Input, Space } from "antd";
-
 const { Search } = Input;
-function inputBar() {
+function InputBar() {
   return (
     <Search
       className={"searchBar"}
@@ -15,4 +14,4 @@ function inputBar() {
   );
 }
 
-export default inputBar;
+export default InputBar;
