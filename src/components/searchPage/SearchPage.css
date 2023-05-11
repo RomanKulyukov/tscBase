@@ -1,0 +1,25 @@
+.search {
+  background-color: #7c7c87;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 700px;
+  height: 100%;
+  color: #fff;
+}
+
+.search__title {
+  color: #f3fba9;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 50px;
+  letter-spacing: 5px;
+}
+.searchBar {
+  padding-left: 50px;
+  padding-right: 50px;
+}
