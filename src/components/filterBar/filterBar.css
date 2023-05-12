@@ -1,0 +1,11 @@
+.filterBar {
+  padding-top: 10px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.filterBar Button {
+  font-family: "Rubik", sans-serif;
+  margin-right: 5px;
+  padding: 5px;
+}
