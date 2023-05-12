@@ -1,11 +1,13 @@
 .filterBar {
-  padding-top: 10px;
+  font-weight: bold;
+  padding: 20px;
   display: flex;
   justify-content: end;
   align-items: center;
 }
 .filterBar Button {
+  font-weight: bold;
   font-family: "Rubik", sans-serif;
-  margin-right: 5px;
+  margin-left: 10px;
   padding: 5px;
 }

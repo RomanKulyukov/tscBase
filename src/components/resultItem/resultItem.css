@@ -1,0 +1,10 @@
+.resultItem__stats {
+  display: flex;
+  justify-content: end;
+}
+.resultItem {
+  margin: 40px 30px;
+  padding: 20px;
+  border: 3px dotted #f3fba9;
+  border-radius: 10px;
+}
