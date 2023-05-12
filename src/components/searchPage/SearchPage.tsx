@@ -4,12 +4,13 @@ import { useState, useEffect } from "react";
 import InputBar from "../inputBar/inputBar";
 import FilterBar from "../filterBar/filterBar";
 import ResultItem from "../resultItem/resultItem";
-import { Pagination } from "antd";
-
+import PageManager from "../pageManager/pageManager";
 function SearchPage() {
   ///STATE
   const [input, setInput] = useState("");
   const [results, setResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pages, setPages] = useState();
   ///STATE
 
   useEffect(() => {}, [results]);
@@ -22,7 +23,7 @@ function SearchPage() {
       alert("Input field should not be empty");
     } else {
       fetch(
-        `https://api.github.com/search/repositories?q=${input}&per_page=5&$page=${2}`
+        `https://api.github.com/search/repositories?q=${input}&per_page=10&$page=${currentPage}`
       ).then((resp) =>
         resp.json().then((json) => setResults({ ...results, ...json }))
       );
@@ -30,7 +31,6 @@ function SearchPage() {
   };
   ///HANDLERS
   function resultsFiller(res: any) {
-    console.log(res.items);
     let resultsList = [];
     for (let i = 0; i < res.items.length; i++) {
       resultsList.push(<ResultItem key={i} item={res.items[i]}></ResultItem>);
@@ -54,7 +54,7 @@ function SearchPage() {
         <>
           {resultsFiller(results)}
           {/* <div className={"search__results"}>{resultsFiller(results)}</div> */}
-          <Pagination defaultCurrent={1} total={50} />
+          <PageManager items={results}></PageManager>
         </>
       )}
     </div>
