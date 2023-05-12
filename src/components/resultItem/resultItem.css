@@ -1,10 +1,17 @@
 .resultItem__stats {
+  padding-top: 30px;
   display: flex;
   justify-content: end;
 }
+.resultItem__stats div {
+  margin-left: 10px;
+}
 .resultItem {
-  margin: 40px 30px;
+  text-decoration: none;
+  color: #fff;
+  margin: 10px 30px;
   padding: 20px;
+  width: 80%;
   border: 3px dotted #f3fba9;
   border-radius: 10px;
 }

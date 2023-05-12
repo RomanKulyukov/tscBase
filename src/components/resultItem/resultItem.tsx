@@ -1,21 +1,17 @@
 import React from "react";
 import "./resultItem.css";
-function ResultItem() {
+function ResultItem(props: any) {
   return (
-    <div className={"resultItem"}>
-      <h3>result name</h3>
-      <div>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia,
-        incidunt, fugit earum minima a quae error fugiat quisquam nam corporis
-        facilis dolorum excepturi omnis doloremque quasi! Dolorum cumque fuga
-        ullam!
-      </div>
+    <a href={props.item.clone_url} target="_blank" className={"resultItem"}>
+      <h2>{props.item.name}</h2>
+
+      <div>{props.item.description}</div>
       <div className={"resultItem__stats"}>
-        <div>watches</div>
-        <div>stars</div>
-        <div>forks</div>
+        <div>&#128374;{props.item.watchers}</div>
+        <div>&#11088;{props.item.stargazers_count}</div>
+        <div>&#128268;{props.item.forks}</div>
       </div>
-    </div>
+    </a>
   );
 }
 

@@ -7,12 +7,16 @@ import ResultItem from "../resultItem/resultItem";
 import { Pagination } from "antd";
 
 function SearchPage() {
+  ///STATE
   const [input, setInput] = useState("");
   const [results, setResults] = useState([]);
+  ///STATE
+
+  useEffect(() => {}, [results]);
+  ///HANDLERS
   const handleChange = (e: any) => {
     setInput(e.target.value);
   };
-
   const handleClick = () => {
     if (!input) {
       alert("Input field should not be empty");
@@ -24,11 +28,12 @@ function SearchPage() {
       );
     }
   };
+  ///HANDLERS
   function resultsFiller(res: any) {
-    console.log(res);
+    console.log(res.items);
     let resultsList = [];
-    for (let i = 0; i < res.items; i++) {
-      resultsList.push(<ResultItem key={i}></ResultItem>);
+    for (let i = 0; i < res.items.length; i++) {
+      resultsList.push(<ResultItem key={i} item={res.items[i]}></ResultItem>);
     }
 
     return resultsList;
@@ -47,7 +52,8 @@ function SearchPage() {
         ""
       ) : (
         <>
-          <div className={"search__results"}>{resultsFiller(results)}</div>
+          {resultsFiller(results)}
+          {/* <div className={"search__results"}>{resultsFiller(results)}</div> */}
           <Pagination defaultCurrent={1} total={50} />
         </>
       )}
