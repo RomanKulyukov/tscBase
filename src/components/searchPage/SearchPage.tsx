@@ -10,10 +10,10 @@ function SearchPage() {
   const [input, setInput] = useState("");
   const [results, setResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pages, setPages] = useState();
+  const [pages, setPages] = useState(5);
+  const [pagesDisabled, setPagesDisabled] = useState([false, false]);
   ///STATE
 
-  useEffect(() => {}, [results]);
   ///HANDLERS
   const handleChange = (e: any) => {
     setInput(e.target.value);
@@ -23,14 +23,28 @@ function SearchPage() {
       alert("Input field should not be empty");
     } else {
       fetch(
-        `https://api.github.com/search/repositories?q=${input}&per_page=10&$page=${currentPage}`
+        `https://api.github.com/search/repositories?q=${input}&per_page=5&$page=2`
       ).then((resp) =>
         resp.json().then((json) => setResults({ ...results, ...json }))
       );
     }
   };
+
+  const pageChangeHandler = (type: string) => {
+    if (type === "prev" && currentPage > 1) {
+      setCurrentPage((currentPage) => {
+        return currentPage - 1;
+      });
+    }
+    if (type === "next" && currentPage < pages) {
+      setCurrentPage((currentPage) => {
+        return currentPage + 1;
+      });
+    }
+  };
   ///HANDLERS
   function resultsFiller(res: any) {
+    console.log(results);
     let resultsList = [];
     for (let i = 0; i < res.items.length; i++) {
       resultsList.push(<ResultItem key={i} item={res.items[i]}></ResultItem>);
@@ -53,8 +67,11 @@ function SearchPage() {
       ) : (
         <>
           {resultsFiller(results)}
-          {/* <div className={"search__results"}>{resultsFiller(results)}</div> */}
-          <PageManager items={results}></PageManager>
+          <PageManager
+            items={results}
+            currentPage={currentPage}
+            pageChangeHandler={pageChangeHandler}
+          ></PageManager>
         </>
       )}
     </div>
