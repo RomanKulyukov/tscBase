@@ -5,6 +5,7 @@ import InputBar from "../inputBar/inputBar";
 import FilterBar from "../filterBar/filterBar";
 import ResultItem from "../resultItem/resultItem";
 import PageManager from "../pageManager/pageManager";
+
 function SearchPage() {
   ///STATE
   const [input, setInput] = useState("");
@@ -44,7 +45,6 @@ function SearchPage() {
   };
   ///HANDLERS
   function resultsFiller(res: any) {
-    console.log(results);
     let resultsList = [];
     for (let i = 0; i < res.items.length; i++) {
       resultsList.push(<ResultItem key={i} item={res.items[i]}></ResultItem>);
