@@ -1,6 +1,7 @@
 import React from "react";
 import "./SearchPage.css";
 import { useState, useEffect } from "react";
+import { Octokit } from "octokit";
 import InputBar from "../inputBar/inputBar";
 import FilterBar from "../filterBar/filterBar";
 import ResultItem from "../resultItem/resultItem";
@@ -11,12 +12,17 @@ function SearchPage() {
   const [input, setInput] = useState("");
   const [results, setResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pages, setPages] = useState(5);
+  const [pages, setPages] = useState(12);
   const [pagesDisabled, setPagesDisabled] = useState([false, false]);
   ///STATE
+  const octokit = new Octokit({});
+  async function octoReq() {
+    console.log(await octokit.request("GET /repositories/?q=facebook", {}));
+  }
 
+  console.log(octoReq());
   ///HANDLERS
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
   };
   const handleClick = () => {
@@ -24,7 +30,7 @@ function SearchPage() {
       alert("Input field should not be empty");
     } else {
       fetch(
-        `https://api.github.com/search/repositories?q=${input}&per_page=5&$page=2`
+        `https://api.github.com/search/repositories?q=${input}&per_page=${pages}&$page=2`
       ).then((resp) =>
         resp.json().then((json) => setResults({ ...results, ...json }))
       );
@@ -44,6 +50,7 @@ function SearchPage() {
     }
   };
   ///HANDLERS
+
   function resultsFiller(res: any) {
     let resultsList = [];
     for (let i = 0; i < res.items.length; i++) {

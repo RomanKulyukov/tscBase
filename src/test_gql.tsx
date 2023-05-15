@@ -35,5 +35,5 @@ fetch(baseUrl, {
 // const resp = async () => {
 //   await fetch(baseUrl).then((resp) => resp.json());
 // };
-console.log();
+
 export {};
