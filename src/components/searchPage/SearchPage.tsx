@@ -1,13 +1,12 @@
 import React from "react";
 import "./SearchPage.css";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 // import { Octokit } from "octokit";
 import { ResultsType } from "../../types";
 import InputBar from "../inputBar/inputBar";
 import FilterBar from "../filterBar/filterBar";
 import ResultItem from "../resultItem/resultItem";
 import PageManager from "../pageManager/pageManager";
-import { Descriptions } from "antd";
 
 function SearchPage() {
   ///STATE---
@@ -18,13 +17,13 @@ function SearchPage() {
   const [order, setOrder] = useState<String>("");
 
   ///---STATE
-  function query() {
+  const query = useCallback(() => {
     fetch(
       `https://api.github.com/search/repositories?q=${input}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`
     ).then((resp) =>
       resp.json().then((json) => setResults({ ...results, ...json }))
     );
-  }
+  }, [results, currentPage, input, order, sort]);
   ///HANDLERS---
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
@@ -36,7 +35,7 @@ function SearchPage() {
     } else {
       query();
     }
-  }, [input]);
+  }, [input, query]);
   const handleFilter = useCallback(
     (filter: string): void => {
       switch (filter) {
@@ -59,7 +58,7 @@ function SearchPage() {
       }
       query();
     },
-    [sort, order]
+    [query]
   );
 
   const pageChangeHandler = useCallback(
@@ -78,7 +77,7 @@ function SearchPage() {
         query();
       }
     },
-    [currentPage]
+    [currentPage, query]
   );
   ///---HANDLERS
 
