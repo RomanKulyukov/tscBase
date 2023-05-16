@@ -5,7 +5,7 @@ function FilterBar(props: any) {
   console.log(props);
   return (
     <>
-      <div className={"filterBar"}>
+      <div className="filterBar">
         Sort by:
         <Button onClick={() => props.handleFilter("stars")}>
           Stars &#11088;
