@@ -17,9 +17,6 @@ function SearchPage() {
   const [sort, setSort] = useState<String>("");
   const [order, setOrder] = useState<String>("");
 
-  useEffect(() => {
-    console.log(results);
-  }, [currentPage, sort, order]);
   ///---STATE
   function query() {
     fetch(
