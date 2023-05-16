@@ -1,6 +1,6 @@
 import React from "react";
 import "./SearchPage.css";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 // import { Octokit } from "octokit";
 import { ResultsType } from "../../types";
 import InputBar from "../inputBar/inputBar";
@@ -16,6 +16,9 @@ function SearchPage() {
   const [sort, setSort] = useState<String>("");
   const [order, setOrder] = useState<String>("");
 
+  useEffect(() => {
+    console.log(results);
+  }, [results, currentPage, input, order, sort]);
   ///---STATE
   const query = useCallback(() => {
     fetch(
