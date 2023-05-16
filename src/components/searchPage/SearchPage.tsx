@@ -93,8 +93,8 @@ function SearchPage() {
           handleClick={handleClick}
           sort={sort}
           order={order}
-        ></InputBar>
-        <FilterBar handleFilter={handleFilter}></FilterBar>
+        />
+        <FilterBar handleFilter={handleFilter} />
       </div>
 
       {Object.keys(results).length > 1 ? (
