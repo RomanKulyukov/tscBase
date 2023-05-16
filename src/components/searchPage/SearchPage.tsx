@@ -1,64 +1,91 @@
 import React from "react";
 import "./SearchPage.css";
-import { useState, useEffect } from "react";
-import { Octokit } from "octokit";
+import { useState, useEffect, useCallback } from "react";
+// import { Octokit } from "octokit";
+import { ResultsType } from "../../types";
 import InputBar from "../inputBar/inputBar";
 import FilterBar from "../filterBar/filterBar";
 import ResultItem from "../resultItem/resultItem";
 import PageManager from "../pageManager/pageManager";
+import { Descriptions } from "antd";
 
 function SearchPage() {
-  ///STATE
-  const [input, setInput] = useState("");
-  const [results, setResults] = useState([]);
+  ///STATE---
+  const [input, setInput] = useState<String>("");
+  const [results, setResults] = useState<ResultsType>({ items: [] });
   const [currentPage, setCurrentPage] = useState(1);
-  const [pages, setPages] = useState(12);
-  const [pagesDisabled, setPagesDisabled] = useState([false, false]);
-  ///STATE
-  const octokit = new Octokit({});
-  async function octoReq() {
-    console.log(await octokit.request("GET /repositories/?q=facebook", {}));
-  }
+  const [sort, setSort] = useState<String>("");
+  const [order, setOrder] = useState<String>("");
 
-  console.log(octoReq());
-  ///HANDLERS
+  useEffect(() => {
+    console.log(results);
+  }, [currentPage, sort, order]);
+  ///---STATE
+  function query() {
+    fetch(
+      `https://api.github.com/search/repositories?q=${input}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`
+    ).then((resp) =>
+      resp.json().then((json) => setResults({ ...results, ...json }))
+    );
+  }
+  ///HANDLERS---
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
   };
-  const handleClick = () => {
+  /// wrap in usecallback!
+  const handleClick = useCallback(() => {
     if (!input) {
       alert("Input field should not be empty");
     } else {
-      fetch(
-        `https://api.github.com/search/repositories?q=${input}&per_page=${pages}&$page=2`
-      ).then((resp) =>
-        resp.json().then((json) => setResults({ ...results, ...json }))
-      );
+      query();
     }
-  };
+  }, [input]);
+  const handleFilter = useCallback(
+    (filter: string): void => {
+      switch (filter) {
+        case "stars":
+          setSort("stars");
+          setOrder(`'desc'`);
+          break;
+        case "forks":
+          setSort("forks");
+          setOrder(`'desc'`);
+          break;
+        case "desc":
+          setOrder(`'desc'`);
+          break;
+        case "asc":
+          setOrder(`'asc'`);
+          break;
+        default:
+          alert("error");
+      }
+      query();
+    },
+    [sort, order]
+  );
 
-  const pageChangeHandler = (type: string) => {
-    if (type === "prev" && currentPage > 1) {
-      setCurrentPage((currentPage) => {
-        return currentPage - 1;
-      });
-    }
-    if (type === "next" && currentPage < pages) {
-      setCurrentPage((currentPage) => {
-        return currentPage + 1;
-      });
-    }
-  };
-  ///HANDLERS
+  const pageChangeHandler = useCallback(
+    (type: string): void => {
+      if (type === "prev" && currentPage > 1) {
+        setCurrentPage((currentPage) => {
+          return currentPage - 1;
+        });
+        query();
+      }
+      if (type === "next" && currentPage) {
+        console.log(currentPage);
+        setCurrentPage((currentPage) => {
+          return currentPage + 1;
+        });
+        query();
+      }
+    },
+    [currentPage]
+  );
+  ///---HANDLERS
 
-  function resultsFiller(res: any) {
-    let resultsList = [];
-    for (let i = 0; i < res.items.length; i++) {
-      resultsList.push(<ResultItem key={i} item={res.items[i]}></ResultItem>);
-    }
-
-    return resultsList;
-  }
+  ///JSX
   return (
     <div className={"search"}>
       <div className={"search__head"}>
@@ -67,21 +94,34 @@ function SearchPage() {
           handleChange={handleChange}
           handleClick={handleClick}
         ></InputBar>
-        <FilterBar></FilterBar>
+        <FilterBar handleFilter={handleFilter}></FilterBar>
       </div>
-      {Object.keys(results).length === 0 ? (
-        ""
-      ) : (
+
+      {Object.keys(results).length > 1 ? (
         <>
-          {resultsFiller(results)}
           <PageManager
             items={results}
             currentPage={currentPage}
             pageChangeHandler={pageChangeHandler}
-          ></PageManager>
+          />{" "}
+          {results.items.map((res) => (
+            <ResultItem key={res.id} item={res} />
+          ))}
+          <PageManager
+            items={results}
+            currentPage={currentPage}
+            pageChangeHandler={pageChangeHandler}
+          />
         </>
+      ) : (
+        ""
       )}
     </div>
   );
 }
+///JSX
 export default SearchPage;
+
+///Object.keys(results).length === 0 ? (
+/// ""
+// )

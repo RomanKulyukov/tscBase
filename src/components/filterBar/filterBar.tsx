@@ -1,14 +1,23 @@
 import React from "react";
 import "./filterBar.css";
 import { Button } from "antd";
-function FilterBar() {
+function FilterBar(props: any) {
   return (
-    <div className={"filterBar"}>
-      Sort by:
-      <Button>Watches &#128374;</Button>
-      <Button>Stars &#11088;</Button>
-      <Button>Forks &#128268;</Button>
-    </div>
+    <>
+      <div className={"filterBar"}>
+        Sort by:
+        <Button onClick={() => props.handleFilter("stars")}>
+          Stars &#11088;
+        </Button>
+        <Button onClick={() => props.handleFilter("forks")}>
+          Forks &#128268;
+        </Button>
+      </div>{" "}
+      <div className={"order"}>
+        <Button onClick={() => props.handleFilter("desc")}> &#9196;</Button>
+        <Button onClick={() => props.handleFilter("asc")}>&#9195;</Button>
+      </div>
+    </>
   );
 }
 
