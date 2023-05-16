@@ -11,8 +11,3 @@ export type ItemType = {
 export interface ResultsType {
   items: ItemType[];
 }
-
-// export type FilterType = {
-//   sort: string;
-//   order: string;
-// };
