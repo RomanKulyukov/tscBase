@@ -1,7 +1,6 @@
 import React from "react";
 import "./SearchPage.css";
 import { useState, useCallback, useEffect } from "react";
-// import { Octokit } from "octokit";
 import { ResultsType } from "../../types";
 import InputBar from "../inputBar/inputBar";
 import FilterBar from "../filterBar/filterBar";
