@@ -1,0 +1,11 @@
+.pageManager {
+  display: "flex";
+  align-items: "center";
+  margin-bottom: "10px";
+}
+.pageManager__num {
+  padding-left: "20px";
+  padding-right: "20px";
+  min-width: "20px";
+  text-align: "center";
+}

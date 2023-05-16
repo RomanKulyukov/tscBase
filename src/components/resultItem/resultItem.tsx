@@ -1,5 +1,5 @@
 import React, { VFC } from "react";
-import "./resultItem.css";
+import "./ResultItem.css";
 import { ItemType } from "../../types";
 interface ResultItemPropsType {
   item: ItemType;

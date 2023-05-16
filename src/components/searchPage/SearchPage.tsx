@@ -2,10 +2,10 @@ import React from "react";
 import "./SearchPage.css";
 import { useState, useCallback, useEffect } from "react";
 import { ResultsType } from "../../types";
-import InputBar from "../inputBar/inputBar";
-import FilterBar from "../filterBar/filterBar";
-import ResultItem from "../resultItem/resultItem";
-import PageManager from "../pageManager/pageManager";
+import InputBar from "../InputBar/InputBar";
+import FilterBar from "../FilterBar/FilterBar";
+import ResultItem from "../ResultItem/ResultItem";
+import PageManager from "../PageManager/PageManager";
 
 function SearchPage() {
   ///STATE---
@@ -19,7 +19,7 @@ function SearchPage() {
     console.log(results);
   }, [results, currentPage, input, order, sort]);
   ///---STATE
-  const query = useCallback(() => {
+  const fetchRepos = useCallback(() => {
     fetch(
       `https://api.github.com/search/repositories?q=${input}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`
     ).then((resp) =>
@@ -35,9 +35,9 @@ function SearchPage() {
     if (!input) {
       alert("Input field should not be empty");
     } else {
-      query();
+      fetchRepos();
     }
-  }, [input, query]);
+  }, [input, fetchRepos]);
   const handleFilter = useCallback(
     (filter: string): void => {
       switch (filter) {
@@ -58,28 +58,24 @@ function SearchPage() {
         default:
           alert("error");
       }
-      query();
+      fetchRepos();
     },
-    [query]
+    [fetchRepos]
   );
 
   const pageChangeHandler = useCallback(
     (type: string): void => {
       if (type === "prev" && currentPage > 1) {
-        setCurrentPage((currentPage) => {
-          return currentPage - 1;
-        });
-        query();
+        setCurrentPage((currentPage) => currentPage - 1);
+        fetchRepos();
       }
       if (type === "next" && currentPage) {
         console.log(currentPage);
-        setCurrentPage((currentPage) => {
-          return currentPage + 1;
-        });
-        query();
+        setCurrentPage((currentPage) => currentPage + 1);
+        fetchRepos();
       }
     },
-    [currentPage, query]
+    [currentPage, fetchRepos]
   );
   ///---HANDLERS
 
