@@ -2,6 +2,7 @@ import React from "react";
 import "./filterBar.css";
 import { Button } from "antd";
 function FilterBar(props: any) {
+  console.log(props);
   return (
     <>
       <div className={"filterBar"}>
@@ -14,8 +15,13 @@ function FilterBar(props: any) {
         </Button>
       </div>{" "}
       <div className={"order"}>
-        <Button onClick={() => props.handleFilter("desc")}> &#9196;</Button>
-        <Button onClick={() => props.handleFilter("asc")}>&#9195;</Button>
+        <Button onClick={() => props.handleFilter("desc")} disabled={true}>
+          {" "}
+          &#9196;
+        </Button>
+        <Button onClick={() => props.handleFilter("asc")} disabled={true}>
+          &#9195;
+        </Button>
       </div>
     </>
   );

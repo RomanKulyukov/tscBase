@@ -44,17 +44,17 @@ function SearchPage() {
       switch (filter) {
         case "stars":
           setSort("stars");
-          setOrder(`'desc'`);
+          setOrder("desc");
           break;
         case "forks":
           setSort("forks");
-          setOrder(`'desc'`);
+          setOrder("desc");
           break;
         case "desc":
-          setOrder(`'desc'`);
+          setOrder("desc");
           break;
         case "asc":
-          setOrder(`'asc'`);
+          setOrder("asc");
           break;
         default:
           alert("error");
@@ -92,6 +92,8 @@ function SearchPage() {
         <InputBar
           handleChange={handleChange}
           handleClick={handleClick}
+          sort={sort}
+          order={order}
         ></InputBar>
         <FilterBar handleFilter={handleFilter}></FilterBar>
       </div>
