@@ -2,10 +2,10 @@ import React from "react";
 import "./SearchPage.css";
 import { useState, useCallback, useEffect } from "react";
 import { ResultsType } from "../../types";
-import InputBar from "../InputBar/InputBar";
-import FilterBar from "../FilterBar/FilterBar";
+import { InputBar } from "../InputBar/InputBar";
+import { FilterBar } from "../FilterBar/FilterBar";
 import RepoCard from "../RepoCard/RepoCard";
-import PageManager from "../PageManager/PageManager";
+import { PageManager } from "../PageManager/PageManager";
 
 function SearchPage() {
   ///STATE---
@@ -36,11 +36,12 @@ function SearchPage() {
       alert("Input field should not be empty");
     } else {
       fetchRepos();
+      setCurrentPage((prev) => (prev = 1));
     }
   }, [input, fetchRepos]);
 
   const handleFilter = useCallback(
-    (filter: string): void => {
+    (filter: string) => {
       switch (filter) {
         case "stars":
           setSort("stars");

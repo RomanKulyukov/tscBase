@@ -6,7 +6,7 @@ interface filterBarPropsType {
   handleFilter(key: string): void;
 }
 
-const FilterBar: VFC<filterBarPropsType> = ({ handleFilter }) => {
+export const FilterBar: VFC<filterBarPropsType> = ({ handleFilter }) => {
   return (
     <>
       <div className="FilterBar">
@@ -15,7 +15,7 @@ const FilterBar: VFC<filterBarPropsType> = ({ handleFilter }) => {
         <Button onClick={() => handleFilter("forks")}>Forks &#128268;</Button>
       </div>{" "}
       <div className="FilterBar__order">
-        <Button onClick={() => handleFilter("desc")} disabled>
+        <Button onClick={() => handleFilter("desc")} disabled={true}>
           {" "}
           &#9196;
         </Button>
@@ -26,5 +26,3 @@ const FilterBar: VFC<filterBarPropsType> = ({ handleFilter }) => {
     </>
   );
 };
-
-export default FilterBar;

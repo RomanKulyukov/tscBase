@@ -8,7 +8,10 @@ interface inputBarPropsType {
   handleClick(key: string): void;
 }
 
-const InputBar: VFC<inputBarPropsType> = ({ handleChange, handleClick }) => {
+export const InputBar: VFC<inputBarPropsType> = ({
+  handleChange,
+  handleClick,
+}) => {
   return (
     <Search
       className="InputBar"
@@ -21,5 +24,3 @@ const InputBar: VFC<inputBarPropsType> = ({ handleChange, handleClick }) => {
     />
   );
 };
-
-export default InputBar;

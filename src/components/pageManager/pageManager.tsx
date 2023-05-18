@@ -6,7 +6,7 @@ interface PageManagerPropsType {
   pageChangeHandler(key: string): void;
   currentPage: number;
 }
-const PageManager: VFC<PageManagerPropsType> = ({
+export const PageManager: VFC<PageManagerPropsType> = ({
   pageChangeHandler,
   currentPage,
 }) => {
@@ -20,5 +20,3 @@ const PageManager: VFC<PageManagerPropsType> = ({
     </div>
   );
 };
-
-export default PageManager;
