@@ -15,9 +15,7 @@ function SearchPage() {
   const [sort, setSort] = useState<String>("");
   const [order, setOrder] = useState<String>("");
 
-  useEffect(() => {
-    console.log(results);
-  }, [results, currentPage, input, order, sort]);
+  useEffect(() => {}, [results, currentPage, input, order, sort]);
   ///---STATE
   const fetchRepos = useCallback(() => {
     fetch(
@@ -30,7 +28,7 @@ function SearchPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
   };
-  /// wrap in usecallback!
+
   const handleClick = useCallback(() => {
     if (!input) {
       alert("Input field should not be empty");
@@ -38,6 +36,7 @@ function SearchPage() {
       fetchRepos();
     }
   }, [input, fetchRepos]);
+
   const handleFilter = useCallback(
     (filter: string): void => {
       switch (filter) {
@@ -81,9 +80,9 @@ function SearchPage() {
 
   ///JSX
   return (
-    <div className={"search"}>
-      <div className={"search__head"}>
-        <h1 className={"search__title"}>Github search</h1>
+    <div className={"Search"}>
+      <div className={"Search__head"}>
+        <h1 className={"Search__title"}>Github search</h1>
         <InputBar
           handleChange={handleChange}
           handleClick={handleClick}

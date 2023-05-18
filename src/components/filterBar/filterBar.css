@@ -1,22 +1,25 @@
-.filterBar {
+.FilterBar {
   font-weight: bold;
   padding: 20px;
   display: flex;
   justify-content: end;
   align-items: center;
 }
-.filterBar Button {
+
+.FilterBar Button {
   font-weight: bold;
   font-family: "Rubik", sans-serif;
   margin-left: 10px;
   padding: 5px;
 }
-.order {
+
+.FilterBar__order {
   display: flex;
   justify-content: end;
   padding-right: 20px;
 }
-.order Button {
+
+.FilterBar__order Button {
   padding: 4px;
   margin-left: 5px;
 }

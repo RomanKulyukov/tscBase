@@ -1,13 +1,13 @@
 import React from "react";
-import { Input, Space } from "antd";
+import { Input } from "antd";
+import "./InputBar.css";
 const { Search } = Input;
 function InputBar(props: any) {
   return (
     <Search
-      style={{ paddingLeft: "20px", paddingRight: "20px" }}
+      className={"InputBar"}
       onChange={props.handleChange}
       onSearch={props.handleClick}
-      className={"searchBar"}
       placeholder="...start typing"
       allowClear
       enterButton="GO!"

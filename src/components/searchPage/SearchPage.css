@@ -1,4 +1,4 @@
-.search {
+.Search {
   background-color: #7c7c87;
   position: absolute;
   display: flex;
@@ -13,14 +13,15 @@
   color: #fff;
 }
 
-.search__title {
+.Search__title {
   color: #f3fba9;
   font-family: "Bebas Neue", sans-serif;
   text-align: center;
   font-size: 50px;
   letter-spacing: 5px;
 }
-.search__head {
+
+.Search__head {
   width: 100%;
   padding-bottom: 50px;
   margin-left: 10px;

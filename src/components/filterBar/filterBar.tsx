@@ -1,11 +1,10 @@
 import React from "react";
-import "./filterBar.css";
+import "./FilterBar.css";
 import { Button } from "antd";
 function FilterBar(props: any) {
-  console.log(props);
   return (
     <>
-      <div className="filterBar">
+      <div className="FilterBar">
         Sort by:
         <Button onClick={() => props.handleFilter("stars")}>
           Stars &#11088;
@@ -14,7 +13,7 @@ function FilterBar(props: any) {
           Forks &#128268;
         </Button>
       </div>{" "}
-      <div className={"order"}>
+      <div className={"FilterBar__order"}>
         <Button onClick={() => props.handleFilter("desc")} disabled={true}>
           {" "}
           &#9196;

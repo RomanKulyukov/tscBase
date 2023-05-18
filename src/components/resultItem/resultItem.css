@@ -3,9 +3,11 @@
   display: flex;
   justify-content: end;
 }
+
 .resultItem__stats div {
   margin-left: 10px;
 }
+
 .resultItem {
   animation-timing-function: linear;
   animation: 3s linear 0.1s colorIt;
