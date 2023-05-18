@@ -1,11 +1,12 @@
-import React from "react";
+import React, { VFC } from "react";
 import { Input } from "antd";
 import "./InputBar.css";
 const { Search } = Input;
+
 function InputBar(props: any) {
   return (
     <Search
-      className={"InputBar"}
+      className="InputBar"
       onChange={props.handleChange}
       onSearch={props.handleClick}
       placeholder="...start typing"

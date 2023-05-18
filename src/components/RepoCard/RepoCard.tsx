@@ -1,20 +1,22 @@
 import React, { VFC } from "react";
-import "./ResultItem.css";
+import "./RepoCard.css";
 import { ItemType } from "../../types";
+
 interface ResultItemPropsType {
   item: ItemType;
 }
+
 const ResultItem: VFC<ResultItemPropsType> = ({ item }) => {
   return (
     <a
       href={item.clone_url}
       target="_blank"
       rel="noreferrer"
-      className={"resultItem"}
+      className="RepoCard"
     >
       <h2>{item.name}</h2>
       <div>{item.description}</div>
-      <div className={"resultItem__stats"}>
+      <div className="RepoCard__stats">
         <div>
           Issues:
           {item.open_issues}

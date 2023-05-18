@@ -1,6 +1,7 @@
-import React from "react";
+import React, { VFC } from "react";
 import "./FilterBar.css";
 import { Button } from "antd";
+
 function FilterBar(props: any) {
   return (
     <>
@@ -13,12 +14,12 @@ function FilterBar(props: any) {
           Forks &#128268;
         </Button>
       </div>{" "}
-      <div className={"FilterBar__order"}>
-        <Button onClick={() => props.handleFilter("desc")} disabled={true}>
+      <div className="FilterBar__order">
+        <Button onClick={() => props.handleFilter("desc")} disabled>
           {" "}
           &#9196;
         </Button>
-        <Button onClick={() => props.handleFilter("asc")} disabled={true}>
+        <Button onClick={() => props.handleFilter("asc")} disabled>
           &#9195;
         </Button>
       </div>

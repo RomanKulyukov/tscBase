@@ -1,6 +1,7 @@
-import React from "react";
+import React, { VFC } from "react";
 import { Button } from "antd";
 import "./PageManager.css";
+
 function PageManager(props: any) {
   return (
     <div>

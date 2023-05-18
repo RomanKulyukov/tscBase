@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { ResultsType } from "../../types";
 import InputBar from "../InputBar/InputBar";
 import FilterBar from "../FilterBar/FilterBar";
-import ResultItem from "../ResultItem/ResultItem";
+import RepoCard from "../RepoCard/RepoCard";
 import PageManager from "../PageManager/PageManager";
 
 function SearchPage() {
@@ -17,6 +17,7 @@ function SearchPage() {
 
   useEffect(() => {}, [results, currentPage, input, order, sort]);
   ///---STATE
+
   const fetchRepos = useCallback(() => {
     fetch(
       `https://api.github.com/search/repositories?q=${input}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`
@@ -24,6 +25,7 @@ function SearchPage() {
       resp.json().then((json) => setResults({ ...results, ...json }))
     );
   }, [results, currentPage, input, order, sort]);
+
   ///HANDLERS---
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
@@ -80,30 +82,23 @@ function SearchPage() {
 
   ///JSX
   return (
-    <div className={"Search"}>
-      <div className={"Search__head"}>
-        <h1 className={"Search__title"}>Github search</h1>
-        <InputBar
-          handleChange={handleChange}
-          handleClick={handleClick}
-          sort={sort}
-          order={order}
-        />
+    <div className="Search">
+      <div className="Search__head">
+        <h1 className="Search__title">Github search</h1>
+        <InputBar handleChange={handleChange} handleClick={handleClick} />
         <FilterBar handleFilter={handleFilter} />
       </div>
 
       {Object.keys(results).length > 1 ? (
         <>
           <PageManager
-            items={results}
             currentPage={currentPage}
             pageChangeHandler={pageChangeHandler}
           />{" "}
           {results.items.map((res) => (
-            <ResultItem key={res.id} item={res} />
+            <RepoCard key={res.id} item={res} />
           ))}
           <PageManager
-            items={results}
             currentPage={currentPage}
             pageChangeHandler={pageChangeHandler}
           />
