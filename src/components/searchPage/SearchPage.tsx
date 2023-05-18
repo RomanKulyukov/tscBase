@@ -24,15 +24,14 @@ function SearchPage() {
     ).then((resp) =>
       resp.json().then((json) => setResults({ ...results, ...json }))
     );
-    console.log("fetchRepos()" + Object.keys(results).length);
-  }, [results, currentPage, inputSearch, sort, order]);
+  }, [currentPage, inputSearch, sort, order, results]);
 
   useEffect(() => {
     console.log("useEffect()");
     if (inputSearch) {
       fetchRepos();
     }
-  }, [currentPage, order, sort, inputSearch]);
+  }, [currentPage, order, sort, inputSearch, fetchRepos]);
   ///HANDLERS---
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -73,7 +72,7 @@ function SearchPage() {
       }
       fetchRepos();
     },
-    [fetchRepos, order, sort]
+    [fetchRepos]
   );
 
   const pageChangeHandler = useCallback(
