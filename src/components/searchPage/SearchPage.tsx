@@ -71,7 +71,6 @@ function SearchPage() {
         fetchRepos();
       }
       if (type === "next" && currentPage) {
-        console.log(currentPage);
         setCurrentPage((currentPage) => currentPage + 1);
         fetchRepos();
       }
@@ -96,7 +95,7 @@ function SearchPage() {
             pageChangeHandler={pageChangeHandler}
           />{" "}
           {results.items.map((res) => (
-            <RepoCard key={res.id} item={res} />
+            <RepoCard key={res.id} card={res} />
           ))}
           <PageManager
             currentPage={currentPage}
