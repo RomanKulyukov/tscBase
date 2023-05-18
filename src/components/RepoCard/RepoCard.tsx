@@ -14,20 +14,21 @@ export const RepoCard: VFC<RepoCardPropsType> = ({ card }) => {
       rel="noreferrer"
       className="RepoCard"
     >
-      <h2>{card.name}</h2>
-      <div>{card.description}</div>
-      <div className="RepoCard__stats">
-        <div>
-          Issues:
-          {card.open_issues}
+      <div className="RepoCard__top">
+        <div className="RepoCard__name">
+          <h4>{card.name} </h4>
+          <div>#{card.id}</div>
         </div>
-        <div>
-          id:
-          {card.id}
+        <div className="RepoCard__stats">
+          <div>&#11088;{card.stargazers_count}</div>
+          <div>&#128268;{card.forks}</div>
+          <div>
+            &#9940;
+            {card.open_issues}
+          </div>
         </div>
-        <div>&#11088;{card.stargazers_count}</div>
-        <div>&#128268;{card.forks}</div>
       </div>
+      <div className="RepoCard_desc">{card.description}</div>
     </a>
   );
 };
