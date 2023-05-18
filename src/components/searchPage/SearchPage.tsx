@@ -10,38 +10,47 @@ import { PageManager } from "../PageManager/PageManager";
 function SearchPage() {
   ///STATE---
   const [input, setInput] = useState<String>("");
+  const [inputSearch, setInputSearch] = useState<String>("");
   const [results, setResults] = useState<ResultsType>({ items: [] });
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState<String>("");
   const [order, setOrder] = useState<String>("");
 
-  useEffect(() => {}, [results, currentPage, input, order, sort]);
   ///---STATE
 
   const fetchRepos = useCallback(() => {
     fetch(
-      `https://api.github.com/search/repositories?q=${input}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`
+      `https://api.github.com/search/repositories?q=${inputSearch}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`
     ).then((resp) =>
       resp.json().then((json) => setResults({ ...results, ...json }))
     );
-  }, [results, currentPage, input, order, sort]);
+  }, [results, currentPage, inputSearch, sort, order]);
 
+  useEffect(() => {
+    if (inputSearch) {
+      fetchRepos();
+    }
+  }, [currentPage, order, sort, inputSearch]);
   ///HANDLERS---
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setInput(e.target.value);
-  };
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>): void => {
+      setInput(e.target.value);
+    },
+    []
+  );
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback((): void => {
     if (!input) {
       alert("Input field should not be empty");
     } else {
+      setInputSearch(input);
       fetchRepos();
-      setCurrentPage((prev) => (prev = 1));
+      setCurrentPage(1);
     }
   }, [input, fetchRepos]);
 
   const handleFilter = useCallback(
-    (filter: string) => {
+    (filter: string): void => {
       switch (filter) {
         case "stars":
           setSort("stars");
@@ -62,7 +71,7 @@ function SearchPage() {
       }
       fetchRepos();
     },
-    [fetchRepos]
+    [fetchRepos, order, sort]
   );
 
   const pageChangeHandler = useCallback(
@@ -86,7 +95,11 @@ function SearchPage() {
       <div className="Search__head">
         <h1 className="Search__title">Github search</h1>
         <InputBar handleChange={handleChange} handleClick={handleClick} />
-        <FilterBar handleFilter={handleFilter} />
+        <FilterBar
+          handleFilter={handleFilter}
+          input={inputSearch}
+          sort={sort}
+        />
       </div>
 
       {Object.keys(results).length > 1 ? (
