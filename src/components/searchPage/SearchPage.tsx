@@ -24,9 +24,11 @@ function SearchPage() {
     ).then((resp) =>
       resp.json().then((json) => setResults({ ...results, ...json }))
     );
+    console.log("fetchRepos()" + Object.keys(results).length);
   }, [results, currentPage, inputSearch, sort, order]);
 
   useEffect(() => {
+    console.log("useEffect()");
     if (inputSearch) {
       fetchRepos();
     }

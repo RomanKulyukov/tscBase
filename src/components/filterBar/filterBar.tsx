@@ -29,12 +29,6 @@ export const FilterBar: VFC<filterBarPropsType> = ({
         >
           Forks &#128268;
         </Button>
-        <Button
-          onClick={() => handleFilter("forks")}
-          disabled={input ? false : true}
-        >
-          Issues &#9940;
-        </Button>
       </div>{" "}
       <div className="FilterBar__order">
         <Button
