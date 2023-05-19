@@ -9,11 +9,13 @@
   align-items: center;
   margin-left: 10px;
   font-size: 12px;
+  font-weight: 700;
+  color: #000;
 }
 
 .RepoCard {
   text-decoration: none;
-  color: #000;
+  color: #7c7c87;
   margin: 10px 30px;
   padding: 5px 30px;
   width: 80%;
@@ -23,6 +25,7 @@
 
 .RepoCard h4 {
   font-size: 20px;
+  color: #000;
   margin: 0;
 }
 

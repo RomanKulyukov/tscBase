@@ -22,10 +22,10 @@ function SearchPage() {
     fetch(
       `https://api.github.com/search/repositories?q=${inputSearch}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`
     ).then((resp) =>
-      resp.json().then((json) => setResults({ ...results, ...json }))
+      resp.json().then((json) => setResults((res) => ({ ...res, ...json })))
     );
-  }, [currentPage, inputSearch, sort, order, results]);
-
+  }, [currentPage, inputSearch, sort, order]);
+  console.log();
   useEffect(() => {
     console.log("useEffect()");
     if (inputSearch) {
