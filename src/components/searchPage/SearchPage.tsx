@@ -19,20 +19,22 @@ function SearchPage() {
   ///---STATE
 
   const fetchRepos = useCallback(() => {
+    console.log("fetch");
     fetch(
       `https://api.github.com/search/repositories?q=${inputSearch}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`
     ).then((resp) =>
       resp.json().then((json) => setResults((res) => ({ ...res, ...json })))
     );
-  }, [currentPage, inputSearch, sort, order]);
-  console.log();
+  }, [currentPage, sort, inputSearch, order]);
+
   useEffect(() => {
-    console.log("useEffect()");
     if (inputSearch) {
       fetchRepos();
     }
   }, [currentPage, order, sort, inputSearch, fetchRepos]);
+
   ///HANDLERS---
+
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>): void => {
       setInput(e.target.value);
