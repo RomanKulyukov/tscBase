@@ -6,7 +6,9 @@ import { InputBar } from "../InputBar/InputBar";
 import { FilterBar } from "../FilterBar/FilterBar";
 import RepoCard from "../RepoCard/RepoCard";
 import { PageManager } from "../PageManager/PageManager";
-import { Octokit } from "octokit";
+import { graphql } from "../../test_gql";
+
+// import { Octokit } from "octokit";
 
 // const octokit = new Octokit({
 //   auth: "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",
@@ -23,16 +25,12 @@ function SearchPage() {
 
   ///---STATE
 
-  /// --- Initial github api query setup
-  const queryQL = "https://api.github.com/graphql";
-  const queryRest = `https://api.github.com/search/repositories?q=${inputSearch}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`;
-  const token =
-    "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";
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `bearer ${token}`,
-  };
-  ///--- Initial github api query setup
+  /// --- Initial github-api query setup
+
+  const queryRest = `https://api.github.com/search/repositories?q=${inputSearch}&per_page=8&page=${currentPage}$sort='${sort}'$order='${order}'`;
+  const token = "";
+
+  ///--- Initial github-api query setup
 
   const fetchRepos = useCallback(() => {
     fetch(queryRest, {
@@ -46,12 +44,12 @@ function SearchPage() {
         .then((json) => setResults((res) => ({ ...res, ...json })))
         .catch((err) => alert(err))
     );
-  }, [queryRest]);
+  }, [queryRest, token]);
 
   useEffect(() => {
-    console.log(!!inputSearch && inputSearch === input);
     if (inputSearch) {
       fetchRepos();
+      graphql();
     }
   }, [currentPage, order, sort, inputSearch, fetchRepos, input]);
 
@@ -69,48 +67,42 @@ function SearchPage() {
       alert("Input field should not be empty");
     } else {
       setInputSearch(input);
-      fetchRepos();
       setCurrentPage(1);
+      setInput("fu");
     }
-  }, [input, fetchRepos]);
+  }, [input]);
 
-  const handleFilter = useCallback(
-    (filter: string): void => {
-      switch (filter) {
-        case "stars":
-          setSort("stars");
-          setOrder("desc");
-          break;
-        case "forks":
-          setSort("forks");
-          setOrder("desc");
-          break;
-        case "desc":
-          setOrder("desc");
-          break;
-        case "asc":
-          setOrder("asc");
-          break;
-        default:
-          alert("error");
-      }
-      fetchRepos();
-    },
-    [fetchRepos]
-  );
+  const handleFilter = useCallback((filter: string): void => {
+    switch (filter) {
+      case "stars":
+        setSort("stars");
+        setOrder("desc");
+        break;
+      case "forks":
+        setSort("forks");
+        setOrder("desc");
+        break;
+      case "desc":
+        setOrder("desc");
+        break;
+      case "asc":
+        setOrder("asc");
+        break;
+      default:
+        alert("error");
+    }
+  }, []);
 
   const pageChangeHandler = useCallback(
     (type: string): void => {
       if (type === "prev" && currentPage > 1) {
         setCurrentPage((currentPage) => currentPage - 1);
-        fetchRepos();
       }
       if (type === "next" && currentPage) {
         setCurrentPage((currentPage) => currentPage + 1);
-        fetchRepos();
       }
     },
-    [currentPage, fetchRepos]
+    [currentPage]
   );
   ///---HANDLERS
 
