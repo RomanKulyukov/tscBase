@@ -22,16 +22,20 @@ function SearchPage() {
   const [order, setOrder] = useState<String>("");
 
   ///---STATE
+
+  /// Initial query data
   const queryQL = "https://api.github.com/graphql";
   const queryURL = `https://api.github.com/search/repositories?q=${inputSearch}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`;
   const token = "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";
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `bearer ${token}`,
+  };
+  ///--- Initial query data
 
   const fetchRepos = useCallback(() => {
     fetch(queryURL, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
+      headers: headers,
     }).then((resp) =>
       resp.json().then((json) => setResults((res) => ({ ...res, ...json })))
     );
