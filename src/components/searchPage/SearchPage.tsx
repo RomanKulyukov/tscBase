@@ -6,6 +6,11 @@ import { InputBar } from "../InputBar/InputBar";
 import { FilterBar } from "../FilterBar/FilterBar";
 import RepoCard from "../RepoCard/RepoCard";
 import { PageManager } from "../PageManager/PageManager";
+import { Octokit } from "octokit";
+
+// const octokit = new Octokit({
+//   auth: "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",
+// });
 
 function SearchPage() {
   ///STATE---
@@ -17,15 +22,26 @@ function SearchPage() {
   const [order, setOrder] = useState<String>("");
 
   ///---STATE
+  const queryQL = "https://api.github.com/graphql";
+  const queryURL = `https://api.github.com/search/repositories?q=${inputSearch}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`;
+  const token = "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";
 
   const fetchRepos = useCallback(() => {
-    console.log("fetch");
-    fetch(
-      `https://api.github.com/search/repositories?q=${inputSearch}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`
-    ).then((resp) =>
+    fetch(queryURL, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`,
+      },
+    }).then((resp) =>
       resp.json().then((json) => setResults((res) => ({ ...res, ...json })))
     );
-  }, [currentPage, sort, inputSearch, order]);
+  }, [currentPage, sort, inputSearch, order, queryURL]);
+
+  // async function fetchRepos() {
+  //   const responce = await fetch(queryURL);
+  //   const data = await responce.json();
+  //   setResults((r) => ({ ...r, ...data }));
+  // }
 
   useEffect(() => {
     if (inputSearch) {

@@ -6,7 +6,7 @@ const fetch = require("node-fetch");
 const body = {
   query: `
     query{
-        user(login : ${github_data.username}){
+        user(login : romanKulyukov){
             issues(first:10, orderBy:{field:CREATED_AT, direction:DESC}){
             nodes{
                 title,
