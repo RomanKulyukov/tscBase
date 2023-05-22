@@ -22,34 +22,38 @@ function SearchPage() {
   const [order, setOrder] = useState<String>("");
 
   ///---STATE
-  console.log(inputSearch);
-  /// Initial query data---
+
+  /// --- Initial github api query setup
   const queryQL = "https://api.github.com/graphql";
-  const queryURL = `https://api.github.com/search/repositories?q=${inputSearch}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`;
+  const queryRest = `https://api.github.com/search/repositories?q=${inputSearch}&per_page=10&page=${currentPage}$sort='${sort}'$order='${order}'`;
   const token =
-    "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";
+    "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";
   const headers = {
     "Content-Type": "application/json",
     Authorization: `bearer ${token}`,
   };
-  ///--- Initial query data
+  ///--- Initial github api query setup
 
   const fetchRepos = useCallback(() => {
-    fetch(queryURL, {
-      headers: headers,
+    fetch(queryRest, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`,
+      },
     }).then((resp) =>
       resp
         .json()
         .then((json) => setResults((res) => ({ ...res, ...json })))
         .catch((err) => alert(err))
     );
-  }, [currentPage, sort, inputSearch, order, queryURL]);
+  }, [queryRest]);
 
   useEffect(() => {
+    console.log(!!inputSearch && inputSearch === input);
     if (inputSearch) {
       fetchRepos();
     }
-  }, [currentPage, order, sort, inputSearch, fetchRepos]);
+  }, [currentPage, order, sort, inputSearch, fetchRepos, input]);
 
   ///HANDLERS---
 
