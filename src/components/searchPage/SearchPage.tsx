@@ -24,8 +24,6 @@ export const SearchPage: VFC = () => {
   /// --- Initial github-api query setup
 
   const queryRest = `https://api.github.com/search/repositories?q=${inputSearch}&per_page=8&page=${currentPage}$sort='${sort}'$order='${order}'`;
-  // const token =
-  //   "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";
 
   ///--- Initial github-api query setup
 
@@ -64,6 +62,8 @@ export const SearchPage: VFC = () => {
     } else {
       setInputSearch(input);
       setCurrentPage(1);
+      setSort("stars");
+      setOrder("desc");
       setLoaderAccess(true);
     }
   }, [input]);
@@ -112,6 +112,7 @@ export const SearchPage: VFC = () => {
           handleFilter={handleFilter}
           input={inputSearch}
           sort={sort}
+          order={order}
         />
       </div>
 
