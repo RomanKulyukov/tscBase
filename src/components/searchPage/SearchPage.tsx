@@ -6,6 +6,7 @@ import { InputBar } from "../InputBar/InputBar";
 import { FilterBar } from "../FilterBar/FilterBar";
 import RepoCard from "../RepoCard/RepoCard";
 import { PageManager } from "../PageManager/PageManager";
+import { Loader } from "../Misc/Loader/Loader";
 import { graphql } from "../../test_gql";
 
 // import { Octokit } from "octokit";
@@ -22,6 +23,7 @@ function SearchPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState<String>("");
   const [order, setOrder] = useState<String>("");
+  const [loaderAccess, setLoaderAccess] = useState<Boolean>(false);
 
   ///---STATE
 
@@ -68,7 +70,7 @@ function SearchPage() {
     } else {
       setInputSearch(input);
       setCurrentPage(1);
-      setInput("fu");
+      setLoaderAccess(true);
     }
   }, [input]);
 
@@ -134,7 +136,7 @@ function SearchPage() {
           />
         </>
       ) : (
-        ""
+        <Loader loaderAccess={loaderAccess} />
       )}
     </div>
   );

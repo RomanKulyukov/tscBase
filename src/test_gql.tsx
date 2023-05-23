@@ -1,4 +1,4 @@
-const body = `query {
+const body = `{
   __schema {
     types {
       name
@@ -15,8 +15,8 @@ const graphql = () => {
   fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
-      //
-      Authorization: `bearer ${token}`,
+      "Content-Type": "application/json",
+      Authorization: `bearer `,
     },
     body: JSON.stringify(body),
   }).then((resp) => {

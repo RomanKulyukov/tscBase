@@ -3,8 +3,8 @@ import { Button } from "antd";
 import "./PageManager.css";
 
 interface PageManagerPropsType {
-  pageChangeHandler(key: string): void;
   currentPage: number;
+  pageChangeHandler(key: string): void;
 }
 export const PageManager: VFC<PageManagerPropsType> = ({
   pageChangeHandler,
