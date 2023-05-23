@@ -1,21 +1,15 @@
-import React from "react";
+import React, { VFC } from "react";
 import "./SearchPage.css";
 import { useState, useCallback, useEffect } from "react";
 import { ResultsType } from "../../types";
 import { InputBar } from "../InputBar/InputBar";
 import { FilterBar } from "../FilterBar/FilterBar";
-import RepoCard from "../RepoCard/RepoCard";
+import { RepoCard } from "../RepoCard/RepoCard";
 import { PageManager } from "../PageManager/PageManager";
 import { Loader } from "../Misc/Loader/Loader";
 import { graphql } from "../../test_gql";
 
-// import { Octokit } from "octokit";
-
-// const octokit = new Octokit({
-//   auth: "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",
-// });
-
-function SearchPage() {
+export const SearchPage: VFC = () => {
   ///STATE---
   const [input, setInput] = useState<String>("");
   const [inputSearch, setInputSearch] = useState<String>("");
@@ -30,7 +24,8 @@ function SearchPage() {
   /// --- Initial github-api query setup
 
   const queryRest = `https://api.github.com/search/repositories?q=${inputSearch}&per_page=8&page=${currentPage}$sort='${sort}'$order='${order}'`;
-  const token = "";
+  // const token =
+  //   "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";
 
   ///--- Initial github-api query setup
 
@@ -43,7 +38,7 @@ function SearchPage() {
     }).then((resp) =>
       resp
         .json()
-        .then((json) => setResults((res) => ({ ...res, ...json })))
+        .then((json) => setResults(json))
         .catch((err) => alert(err))
     );
   }, [queryRest, token]);
@@ -51,7 +46,6 @@ function SearchPage() {
   useEffect(() => {
     if (inputSearch) {
       fetchRepos();
-      graphql();
     }
   }, [currentPage, order, sort, inputSearch, fetchRepos, input]);
 
@@ -140,10 +134,5 @@ function SearchPage() {
       )}
     </div>
   );
-}
+};
 ///JSX
-export default SearchPage;
-
-///Object.keys(results).length === 0 ? (
-/// ""
-// )

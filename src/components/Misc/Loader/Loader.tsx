@@ -1,10 +1,11 @@
 import React, { VFC } from "react";
 import "./Loader.css";
 
-interface LoaderTypes {
+interface LoaderPropTypes {
   loaderAccess: Boolean;
 }
-export const Loader: VFC<LoaderTypes> = ({ loaderAccess }): any => {
+
+export const Loader: VFC<LoaderPropTypes> = ({ loaderAccess }) => {
   if (loaderAccess) {
     return (
       <div className="lds-ring">
@@ -15,6 +16,6 @@ export const Loader: VFC<LoaderTypes> = ({ loaderAccess }): any => {
       </div>
     );
   } else {
-    return "";
+    return null;
   }
 };

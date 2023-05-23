@@ -19,8 +19,8 @@ const graphql = () => {
       Authorization: `bearer `,
     },
     body: JSON.stringify(body),
-  }).then((resp) => {
-    console.log(JSON.stringify(resp));
+    // }).then((resp) => {
+    //   console.log(JSON.stringify(resp));
   });
 };
 

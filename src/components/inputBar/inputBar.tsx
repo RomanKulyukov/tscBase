@@ -3,12 +3,12 @@ import { Input } from "antd";
 import "./InputBar.css";
 const { Search } = Input;
 
-interface inputBarPropsType {
+interface InputBarPropsType {
   handleChange(key: React.ChangeEvent<HTMLInputElement>): void;
   handleClick(key: string): void;
 }
 
-export const InputBar: VFC<inputBarPropsType> = ({
+export const InputBar: VFC<InputBarPropsType> = ({
   handleChange,
   handleClick,
 }) => {

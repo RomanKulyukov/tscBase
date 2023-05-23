@@ -2,13 +2,13 @@ import React, { VFC } from "react";
 import "./FilterBar.css";
 import { Button } from "antd";
 
-interface filterBarPropsType {
+interface FilterBarPropsType {
   handleFilter(key: string): void;
   input: String;
   sort: String;
 }
 
-export const FilterBar: VFC<filterBarPropsType> = ({
+export const FilterBar: VFC<FilterBarPropsType> = ({
   handleFilter,
   input,
   sort,

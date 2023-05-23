@@ -32,5 +32,3 @@ export const RepoCard: VFC<RepoCardPropsType> = ({ card }) => {
     </a>
   );
 };
-
-export default RepoCard;
