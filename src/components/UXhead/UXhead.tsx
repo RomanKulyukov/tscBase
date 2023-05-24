@@ -1,15 +1,15 @@
 import React, { VFC } from "react";
-import "./FilterBar.css";
+import "./UXhead.css";
 import { Button } from "antd";
 
-interface FilterBarPropsType {
+interface UXheadPropsType {
   handleFilter(key: string): void;
   input: String;
   sort: String;
   order: String;
 }
 
-export const FilterBar: VFC<FilterBarPropsType> = ({
+export const UXhead: VFC<UXheadPropsType> = ({
   handleFilter,
   input,
   sort,
@@ -17,7 +17,7 @@ export const FilterBar: VFC<FilterBarPropsType> = ({
 }) => {
   return (
     <>
-      <div className="FilterBar">
+      <div className="UXhead">
         Sort by:
         <Button
           onClick={() => handleFilter("stars")}
@@ -32,7 +32,7 @@ export const FilterBar: VFC<FilterBarPropsType> = ({
           Forks &#128268;
         </Button>
       </div>{" "}
-      <div className="FilterBar__order">
+      <div className="UXhead__order">
         <Button
           onClick={() => handleFilter("desc")}
           disabled={!input || order === "desc" ? true : false}

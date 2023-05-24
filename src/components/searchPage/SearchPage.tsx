@@ -3,13 +3,24 @@ import "./SearchPage.css";
 import { useState, useCallback, useEffect } from "react";
 import { ResultsType } from "../../types";
 import { InputBar } from "../InputBar/InputBar";
-import { FilterBar } from "../FilterBar/FilterBar";
+import { UXhead } from "../UXhead/UXhead";
 import { RepoCard } from "../RepoCard/RepoCard";
 import { PageManager } from "../PageManager/PageManager";
 import { Loader } from "../Misc/Loader/Loader";
-import { graphql } from "../../test_gql";
+import { LocationType } from "../../types";
+import { useQuery, gql } from "@apollo/client";
 
 export const SearchPage: VFC = () => {
+  const GET_LOCATIONS = gql`
+    query search{
+      query: React,
+      first: 10,
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(GET_LOCATIONS);
+  console.log(data);
+
   ///STATE---
   const [input, setInput] = useState<String>("");
   const [inputSearch, setInputSearch] = useState<String>("");
@@ -24,7 +35,8 @@ export const SearchPage: VFC = () => {
   /// --- Initial github-api query setup
 
   const queryRest = `https://api.github.com/search/repositories?q=${inputSearch}&per_page=8&page=${currentPage}$sort='${sort}'$order='${order}'`;
-
+  const token =
+    "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";
   ///--- Initial github-api query setup
 
   const fetchRepos = useCallback(() => {
@@ -108,7 +120,8 @@ export const SearchPage: VFC = () => {
       <div className="Search__head">
         <h1 className="Search__title">Github search</h1>
         <InputBar handleChange={handleChange} handleClick={handleClick} />
-        <FilterBar
+        {/* <DisplayLocations /> */}
+        <UXhead
           handleFilter={handleFilter}
           input={inputSearch}
           sort={sort}

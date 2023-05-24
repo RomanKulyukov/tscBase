@@ -11,3 +11,9 @@ export type ItemType = {
 export interface ResultsType {
   items: ItemType[];
 }
+export interface LocationType {
+  id: number;
+  name: string;
+  description: string;
+  photo: string;
+}
