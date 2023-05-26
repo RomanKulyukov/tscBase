@@ -49,3 +49,12 @@
   font-size: 10px;
   font-weight: 700;
 }
+
+.spin {
+  margin: 20px 0;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  text-align: center;
+  color: #fff;
+  border-radius: 4px;
+}

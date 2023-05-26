@@ -6,11 +6,9 @@ const httpLink = createHttpLink({
 });
 
 const token_github =
-  "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";
+
 
 const authLink = setContext((_, { headers }) => {
-  // const token = localStorage.getItem(token_github);
-
   return {
     headers: {
       ...headers,
@@ -18,6 +16,7 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
