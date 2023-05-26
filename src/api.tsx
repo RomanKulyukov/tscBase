@@ -5,14 +5,11 @@ const httpLink = createHttpLink({
   uri: "https://api.github.com/graphql",
 });
 
-const token_github =
-
-
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: `Bearer ${token_github}`,
+      authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
     },
   };
 });
