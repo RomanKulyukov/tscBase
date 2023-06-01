@@ -1,4 +1,4 @@
-import React, { VFC, useState } from "react";
+import React, { VFC, useState, useCallback, useEffect } from "react";
 import "./RepositoriesListOutput.css";
 import { PropertiesOutputItemEdgeType } from "../../types";
 import { useQuery, gql } from "@apollo/client";
@@ -15,6 +15,8 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
   ///QUERY
 
   const [currentCursor, setCurrentCursor] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [repositoryCount, setRepositoryCount] = useState(null);
   const GET_REPOS = gql`
     query MyQuery($input: String!) {
       search(query: $input, type: REPOSITORY, first: 10) {
@@ -49,6 +51,27 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
     variables: { input: inputSearch },
   });
   ///QUERY
+
+  const handlePageChange = useCallback(
+    (arg: string): void => {
+      if (arg === "prev" && currentPage > 1) {
+        setCurrentPage(() => currentPage - 1);
+      } else if (
+        repositoryCount &&
+        arg === "next" &&
+        currentPage < repositoryCount
+      ) {
+        setCurrentPage(() => currentPage + 1);
+      }
+    },
+    [currentPage, repositoryCount]
+  );
+
+  useEffect(() => {
+    if (data) {
+      setRepositoryCount(data.search.repositoryCount);
+    }
+  }, [data]);
 
   if (data && data.search.pageInfo.endCursor !== currentCursor) {
     setCurrentCursor(() => data.search.pageInfo.endCursor);
@@ -88,13 +111,12 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
       );
     }
   );
+
   return (
     <>
       <PageManager
-        pageChangeHandler={() => {
-          console.log("tick");
-        }}
-        currentPage={1}
+        handlePageChange={handlePageChange}
+        currentPage={currentPage}
       />
       {repositoriesListJSX}
     </>

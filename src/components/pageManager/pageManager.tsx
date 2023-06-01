@@ -4,18 +4,18 @@ import "./PageManager.css";
 
 interface PageManagerPropsType {
   currentPage: number;
-  pageChangeHandler(key: string): void;
+  handlePageChange: any;
 }
 export const PageManager: VFC<PageManagerPropsType> = ({
-  pageChangeHandler,
+  handlePageChange,
   currentPage,
 }) => {
   return (
     <div>
       <div className="PageManager">
-        <Button onClick={() => pageChangeHandler("prev")}>Prev.</Button>
+        <Button onClick={() => handlePageChange("prev")}>Prev.</Button>
         <div className="PageManager__num">{currentPage}</div>
-        <Button onClick={() => pageChangeHandler("next")}>Next</Button>
+        <Button onClick={() => handlePageChange("next")}>Next</Button>
       </div>
     </div>
   );

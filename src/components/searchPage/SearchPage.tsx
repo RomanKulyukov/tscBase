@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { VFC, useEffect } from "react";
 import "./SearchPage.css";
 import { useState, useCallback } from "react";
 import { InputBar } from "../InputBar/InputBar";
@@ -22,7 +22,7 @@ export const SearchPage: VFC = () => {
       setInputSearch(input);
     }
   }, [input]);
-
+  useEffect(() => {}, [input]);
   return (
     <div className="Search">
       <div className="Search__head">
