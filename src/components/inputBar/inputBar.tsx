@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { VFC, useCallback } from "react";
 import { Input } from "antd";
 import "./InputBar.css";
 const { Search } = Input;
