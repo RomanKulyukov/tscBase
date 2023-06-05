@@ -21,8 +21,13 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
   console.log(currentCursor);
 
   const GET_REPOS = gql`
-    query MyQuery($input: String!, $firstToShow: Int!, $cursor: String) {
-      search(query: $input, type: REPOSITORY, first: $firstToShow) {
+    query MyQuery($input: String!, $firstToShow: Int!, $after: String) {
+      search(
+        query: $input
+        after: $after
+        type: REPOSITORY
+        first: $firstToShow
+      ) {
         edges {
           node {
             ... on Repository {
@@ -42,6 +47,7 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
           }
         }
         pageInfo {
+          startCursor
           endCursor
           hasNextPage
           hasPreviousPage
@@ -50,10 +56,9 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
       }
     }
   `;
-  const { loading, error, data } = useQuery(GET_REPOS, {
-    variables: { input: inputSearch, firstToShow: first },
+  const { loading, error, data, refetch } = useQuery(GET_REPOS, {
+    variables: { input: inputSearch, firstToShow: first, after: "" },
   });
-  ///QUERY
 
   const handlePageChange = useCallback(
     (arg: string): void => {
@@ -65,6 +70,7 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
         currentPage < repositoryCount / first
       ) {
         setCurrentPage(() => currentPage + 1);
+        refetch({ after: currentCursor });
       }
     },
     [currentPage, repositoryCount, first]
