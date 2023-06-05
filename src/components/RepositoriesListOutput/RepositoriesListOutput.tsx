@@ -17,9 +17,12 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
   const [currentCursor, setCurrentCursor] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [repositoryCount, setRepositoryCount] = useState(null);
+  const [first, setFirst] = useState(10);
+  console.log(currentCursor);
+
   const GET_REPOS = gql`
-    query MyQuery($input: String!) {
-      search(query: $input, type: REPOSITORY, first: 10) {
+    query MyQuery($input: String!, $firstToShow: Int!, $cursor: String) {
+      search(query: $input, type: REPOSITORY, first: $firstToShow) {
         edges {
           node {
             ... on Repository {
@@ -48,7 +51,7 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
     }
   `;
   const { loading, error, data } = useQuery(GET_REPOS, {
-    variables: { input: inputSearch },
+    variables: { input: inputSearch, firstToShow: first },
   });
   ///QUERY
 
@@ -59,12 +62,12 @@ export const RepositoriesListOutput: VFC<RepositoriesOutputListType> = ({
       } else if (
         repositoryCount &&
         arg === "next" &&
-        currentPage < repositoryCount
+        currentPage < repositoryCount / first
       ) {
         setCurrentPage(() => currentPage + 1);
       }
     },
-    [currentPage, repositoryCount]
+    [currentPage, repositoryCount, first]
   );
 
   useEffect(() => {

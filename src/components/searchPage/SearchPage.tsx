@@ -22,7 +22,9 @@ export const SearchPage: VFC = () => {
       setInputSearch(input);
     }
   }, [input]);
+
   useEffect(() => {}, [input]);
+
   return (
     <div className="Search">
       <div className="Search__head">
