@@ -1,6 +1,6 @@
-import React, { VFC } from "react";
-import "./App.css";
+import React, { FC } from "react";
+import "./App.scss";
 
-export const App: VFC = () => {
+export const App: FC = () => {
   return <div>App</div>;
 };
