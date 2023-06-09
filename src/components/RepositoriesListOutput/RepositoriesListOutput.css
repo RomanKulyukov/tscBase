@@ -1,0 +1,60 @@
+.RepoCard__stats {
+  display: flex;
+  align-items: baseline;
+  font-size: 15px;
+}
+
+.RepoCard__stats div {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
+}
+
+.RepoCard {
+  text-decoration: none;
+  color: #7c7c87;
+  margin: 10px 30px;
+  padding: 5px 30px;
+  width: 80%;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.RepoCard h4 {
+  font-size: 20px;
+  color: #000;
+  margin: 0;
+}
+
+.RepoCard__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.RepoCard_desc {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.RepoCard__name {
+  display: flex;
+  align-items: center;
+}
+
+.RepoCard__name div {
+  margin-left: 10px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.spin {
+  margin: 20px 0;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  text-align: center;
+  color: #fff;
+  border-radius: 4px;
+}
